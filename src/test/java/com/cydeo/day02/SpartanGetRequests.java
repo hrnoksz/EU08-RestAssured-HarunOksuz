@@ -39,4 +39,27 @@ public class SpartanGetRequests {
         //verify content type is application/json
         Assertions.assertEquals(response.contentType(), "application/json");
     }
+
+    /*
+        Given accept header is application/json
+        When users send a get request to /api/spartans/3
+        Then status code should be 200
+        And content type should be application/json
+        and json body should contain Fidole
+     */
+    @Test
+    public void test2(){
+        Response response = RestAssured.given().accept(ContentType.JSON)
+                .when().get(baseUrl + "/api/spartans/3");
+
+        //verify status code 200
+        Assertions.assertEquals(response.statusCode(), 200);
+
+        //verify content type
+        Assertions.assertEquals(response.contentType(), "application/json");
+
+        //verify json body contains Fidole
+        Assertions.assertTrue(response.body().asString().contains("Fidole"));
+
+    }
 }
