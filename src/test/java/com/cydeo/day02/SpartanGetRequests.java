@@ -34,10 +34,10 @@ public class SpartanGetRequests {
 
         //how to do API testing then?
         //verify status code is 200
-        Assertions.assertEquals(response.statusCode(), 200);
+        Assertions.assertEquals(200, response.statusCode());
 
         //verify content type is application/json
-        Assertions.assertEquals(response.contentType(), "application/json");
+        Assertions.assertEquals("application/json", response.contentType());
     }
 
     /*
@@ -53,10 +53,10 @@ public class SpartanGetRequests {
                 .when().get(baseUrl + "/api/spartans/3");
 
         //verify status code 200
-        Assertions.assertEquals(response.statusCode(), 200);
+        Assertions.assertEquals(200, response.statusCode());
 
         //verify content type
-        Assertions.assertEquals(response.contentType(), "application/json");
+        Assertions.assertEquals("application/json", response.contentType());
 
         //verify json body contains Fidole
         Assertions.assertTrue(response.body().asString().contains("Fidole"));
