@@ -7,8 +7,9 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static io.restassured.RestAssured.*;
+import static org.junit.jupiter.api.Assertions.*;
+
 
 public class HrGetRequests {
 
@@ -17,14 +18,14 @@ public class HrGetRequests {
     @BeforeAll
     public static void init(){
         //save baseurl inside this variable so that we don't need to type each http method.
-        RestAssured.baseURI = "http://3.83.123.243:1000/ords/hr";
+        baseURI = "http://3.83.123.243:1000/ords/hr";
     }
 
     @DisplayName("GET request to /regions")
     @Test
     public void test1(){
 
-        Response response = RestAssured.get("/regions");
+        Response response = get("/regions");
 
         //print the status code
         System.out.println(response.statusCode());
@@ -41,7 +42,7 @@ public class HrGetRequests {
     @DisplayName("GET request to /regions/2")
     @Test
     public void test2(){
-        Response response = RestAssured.given().accept(ContentType.JSON)
+        Response response = given().accept(ContentType.JSON)
                 .when().get("/regions/2");
 
         //verify status code
