@@ -39,6 +39,8 @@ public class ORDSApiTestWithParameters {
 
         //verify content type
         assertEquals("application/json", response.contentType());
+        //or
+        //assertEquals("application/json", response.header("Content-Type"));
 
         //verify "United States of America" in the json payload/body
         assertTrue(response.body().asString().contains("United States of America"));
