@@ -121,20 +121,21 @@ public class SpartanTestsWithParameters {
         queryMap.put("gender","Female");
 
         Response response = given().
-                log().all()
-                .accept(ContentType.JSON)
-                .and().queryParams(queryMap)
-                .when()
-                .get("/api/spartans/search");
+                                    log().all()
+                                    .accept(ContentType.JSON)
+                                    .and().queryParams(queryMap)
+                            .when()
+                                    .get("/api/spartans/search");
 
         //verify status code 200
         assertEquals(200,response.statusCode());
+
         //verify content type
         assertEquals("application/json",response.contentType());
-        //verify NotFound in the json payload/body
 
         //"Female" should be in response payload
         assertTrue(response.body().asString().contains("Female"));
+
         //"Janette" should be in response payload
         assertTrue(response.body().asString().contains("Janette"));
 
