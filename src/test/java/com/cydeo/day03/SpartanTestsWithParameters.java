@@ -22,7 +22,7 @@ public class SpartanTestsWithParameters {
           When user sends GET request to /api/spartans/{id}
           Then response status code should be 200
           And response content-type: application/json
-          And "Blythe" should be in response payload
+          And "Blythe" should be in response payload/body (payload means body)
      */
     @DisplayName("GET request to /api/spartans/{id} with ID 5")
     @Test
@@ -45,5 +45,33 @@ public class SpartanTestsWithParameters {
 
     }
 
+    /*
+        TASK
+        Given accept type is Json
+        And Id parameter value is 500
+        When user sends GET request to /api/spartans/{id}
+        Then response status code should be 404
+        And response content-type: application/json
+        And "Not Found" message should be in response payload
+     */
+
+    @DisplayName("GET request to /api/spartans/{id} Negative Test")
+    @Test
+    public void test2(){
+
+        Response response = given()
+                                    .accept(ContentType.JSON)
+                                    .log().all().pathParam("id", 500)
+                             .when()
+                                    .get("/api/spartans/{id}");
+        //verify status code
+        assertEquals(404, response.statusCode());
+
+        //verify content type
+        assertEquals("application/json", response.contentType());
+
+        //verify "Not Found" message in the json payload/body
+        assertTrue(response.body().asString().contains("Not Found"));
+    }
 
 }
