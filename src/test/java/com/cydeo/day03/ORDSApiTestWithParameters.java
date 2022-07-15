@@ -31,6 +31,7 @@ public class ORDSApiTestWithParameters {
 
         Response response = given().accept(ContentType.JSON)
                 .and().queryParam("q", "{\"region_id\":2}")
+                .log().all()
                 .when().get("/countries");
 
         //verify status code
@@ -41,5 +42,7 @@ public class ORDSApiTestWithParameters {
 
         //verify "United States of America" in the json payload/body
         assertTrue(response.body().asString().contains("United States of America"));
+
+        response.prettyPrint();
     }
 }
