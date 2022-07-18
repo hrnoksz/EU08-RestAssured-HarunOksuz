@@ -16,7 +16,7 @@ public class ORDSAPİWithJasonPath extends HRTestBase {
 
     @DisplayName("GET request to Countries")
     @Test
-    public void test1(){
+    public void test1() {
 
         Response response = get("/countries");
 
@@ -31,8 +31,12 @@ public class ORDSAPİWithJasonPath extends HRTestBase {
         List<String> allCountryIds = jsonPath.getList("items.country_id");
         System.out.println("allCountryIds = " + allCountryIds);
         for (String eachCountryId : allCountryIds) {
-            System.out.println("allCountryId = " + eachCountryId);
+            System.out.println("eachCountryId = " + eachCountryId);
         }
+
+        //get all country names where their region id is equal to 2 !!!!!!!!!!!!!!!!!!!!!!!
+        List<Object> countryNameWithRegion2 = jsonPath.getList("items.findAll {it.region_id == 2}.country_name");
+        System.out.println("countryNameWithRegion2 = " + countryNameWithRegion2);
 
     }
 
