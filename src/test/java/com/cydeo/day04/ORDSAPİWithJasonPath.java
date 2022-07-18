@@ -28,9 +28,7 @@ public class ORDSAPİWithJasonPath extends HRTestBase {
         System.out.println("secondCountryName = " + secondCountryName);
 
         //get all country ids
-        JsonPath jsonPath1 = response.jsonPath();
-
-        List<String> allCountryIds = jsonPath1.getList("items.country_id");
+        List<String> allCountryIds = jsonPath.getList("items.country_id");
         System.out.println("allCountryIds = " + allCountryIds);
         for (String eachCountryId : allCountryIds) {
             System.out.println("allCountryId = " + eachCountryId);
