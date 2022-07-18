@@ -62,19 +62,24 @@ public class SpartanTestsWithParameters {
     @Test
     public void test2(){
 
-        Response response = given()
-                                    .accept(ContentType.JSON)
-                                    .log().all().pathParam("id", 500)
-                             .when()
-                                    .get("/api/spartans/{id}");
-        //verify status code
-        assertEquals(404, response.statusCode());
+        try{
+            Response response = given()
+                    .accept(ContentType.JSON)
+                    .log().all().pathParam("id", 500)
+                    .when()
+                    .get("/api/spartans/{id}");
+            //verify status code
+            assertEquals(404, response.statusCode());
 
-        //verify content type
-        assertEquals("application/json", response.contentType());
+            //verify content type
+            assertEquals("application/json", response.contentType());
 
-        //verify "Not Found" message in the json payload/body
-        assertTrue(response.body().asString().contains("Not Found"));
+            //verify "Not Found" message in the json payload/body
+            assertTrue(response.body().asString().contains("Not Found"));
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     /*

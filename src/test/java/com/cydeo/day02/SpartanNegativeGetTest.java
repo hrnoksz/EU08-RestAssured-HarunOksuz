@@ -27,18 +27,20 @@ public class SpartanNegativeGetTest {
     @Test
     public void test1(){
 
-       Response response = given().accept(ContentType.XML)
-                .when()
-                .get("/api/spartans/10");
+       try{
+           Response response = given().accept(ContentType.XML)
+                   .when()
+                   .get("/api/spartans/10");
 
-       System.out.println(response.statusCode());
+           //verify status code is 406
+           assertEquals(406, response.statusCode());
 
-       //verify status code is 406
-       assertEquals(406, response.statusCode());
+           //verify content type
+           assertEquals("application/xml;charset=UTF-8", response.contentType());
 
-        //verify content type
-        assertEquals("application/xml;charset=UTF-8", response.contentType());
-
+       } catch (Exception e){
+           e.printStackTrace();
+       }
 
     }
 }
