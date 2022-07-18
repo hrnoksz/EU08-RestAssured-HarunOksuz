@@ -61,6 +61,13 @@ public class ORDSApiTestWithPath extends HRTestBase {
             System.out.println(eachCountryId);
         }
 
+        //assert that all regions ids are equal to
+        List<Integer> allRegionIds = response.path("items.region_id");
+        for (Integer eachAllRegionId : allRegionIds) {
+            System.out.println("eachAllRegionId = " + eachAllRegionId);
+            assertEquals(2, eachAllRegionId);
+        }
+
     }
 
 
