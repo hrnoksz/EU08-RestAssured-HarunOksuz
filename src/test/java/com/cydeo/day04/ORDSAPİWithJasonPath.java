@@ -40,5 +40,30 @@ public class ORDSAPİWithJasonPath extends HRTestBase {
 
     }
 
+    @DisplayName("GET request to /employees with query param")
+    @Test
+    public void test2() {
 
+        Response response = given().accept(ContentType.JSON)
+                .and().queryParam("limit", "107")
+                .when().get("/employees");
+
+        //get me all email of employees who is working as IT_PROG
+        JsonPath jsonPath = response.jsonPath();
+
+        List<String> emailList = jsonPath.getList("items.findAll {it.job_id ==\"IT_PROG\"}.email");
+        System.out.println("emailList = " + emailList);
+
+        //get me first name of employees who is making more than 10000
+        List<String> firstnameList = jsonPath.getList("items.findAll {it.salary > 10000}.first_name");
+        System.out.println("firstnameList = " + firstnameList);
+
+        //get me first_name who is making the max salary
+        String kingFirstName = jsonPath.getString("items.max {it.salary}.first_name");
+        System.out.println("kingFirstName = " + kingFirstName);
+
+        String kingNameWithPathMethod  = response.path("items.max{it.salary}.first_name");
+        System.out.println("kingNameWithPathMethod = " + kingNameWithPathMethod);
+
+    }
 }
