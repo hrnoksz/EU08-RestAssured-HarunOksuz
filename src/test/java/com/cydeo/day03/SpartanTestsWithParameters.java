@@ -33,7 +33,7 @@ public class SpartanTestsWithParameters {
 
         Response response = given()
                                     .accept(ContentType.JSON)
-                                    .and().pathParam("id", 5)
+                                    .and().pathParam("id", 10)
                             .when()
                                     .get("/api/spartans/{id}");
 
