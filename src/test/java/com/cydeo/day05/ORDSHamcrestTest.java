@@ -2,6 +2,10 @@ package com.cydeo.day05;
 
 import com.cydeo.utililities.HRTestBase;
 import io.restassured.http.ContentType;
+import io.restassured.path.json.JsonPath;
+import io.restassured.response.Response;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -25,7 +29,27 @@ public class ORDSHamcrestTest extends HRTestBase {
         //expected names
         List<String> names = Arrays.asList("Alexander", "Bruce", "David", "Valli", "Diana");
 
-        given().
+                given().
+                    accept(ContentType.JSON)
+                    .and().queryParam("q", "{\"job_id\":\"IT_PROG\"}")
+                .when()
+                    .get("/employees")
+                .then()
+                    .statusCode(200)
+                    .body("items.job_id", everyItem(equalTo("IT_PROG")))
+                    .body("items.first_name", containsInRelativeOrder("Alexander", "Bruce", "David", "Valli", "Diana"))
+                    .body("items.email",containsInAnyOrder("VPATABAL","DAUSTIN","BERNST","AHUNOLD","DLORENTZ"))
+                    .body("items.first_name", equalTo(names)); //equality of lists assertion
+        //containsInRelativeOrder() method --> contains with order
+        //containsInAnyOrder() method --> contains without order
+
+    }
+
+    @Test
+    public void employeeTest2(){
+        //We want to chain and also get response object
+        //After chaining we use extract() method to get response object!!!!!!!!!!!!!!!!!!!!!!!
+       Response response = given().
                 accept(ContentType.JSON)
                 .and().queryParam("q", "{\"job_id\":\"IT_PROG\"}")
                 .when()
@@ -33,11 +57,28 @@ public class ORDSHamcrestTest extends HRTestBase {
                 .then()
                 .statusCode(200)
                 .body("items.job_id", everyItem(equalTo("IT_PROG")))
-                .body("items.first_name", containsInRelativeOrder("Alexander", "Bruce", "David", "Valli", "Diana"))
-                .body("items.email",containsInAnyOrder("VPATABAL","DAUSTIN","BERNST","AHUNOLD","DLORENTZ"))
-                .body("items.first_name", equalTo(names));
-        //containsInRelativeOrder() method --> contains with order
-        //containsInAnyOrder() method --> contains without order
+                .extract().response();
 
+       response.prettyPrint();
+
+       //extract() method allows us to get jsonPath object
+       JsonPath jsonPath = given().
+                accept(ContentType.JSON)
+                .and().queryParam("q", "{\"job_id\":\"IT_PROG\"}")
+                .when()
+                .get("/employees")
+                .then()
+                .statusCode(200)
+                .body("items.job_id", everyItem(equalTo("IT_PROG")))
+                .extract().jsonPath();
+
+       //assert that we have only 5 firstnames
+       assertThat(jsonPath.getList("items.first_name"), hasSize(5));
+
+       //assert firstnames order
+        assertThat(jsonPath.getList("items.first_name"), containsInRelativeOrder("Alexander", "Bruce", "David", "Valli", "Diana"));
     }
+
+
+
 }
