@@ -55,14 +55,28 @@ public class HamcrestMatchersApiTest {
                     .get("http://api.cybertektraining.com/teacher/{id}")
                 .then()
                     .statusCode(200).and()
-                    .contentType("application/json")
+                    .contentType("application/json;charset=UTF-8")
                     .and()
                     //.header("Content-Length", is("275")) There is a problem related to website
                     .and()
-                    .header("Date", notNullValue())
+                    .header("Date", notNullValue()) //This line check whether Date is exist or not
                     .and().assertThat()
                     .body("teachers[0].firstName", is("Leonel"))
                     .body("teachers[0].lastName", is("Messi"))
                     .body("teachers[0].gender", is("Male"));
+    }
+    @DisplayName("GET request to teacher/all and chaining")
+    @Test
+    public void teachersTest(){
+
+        // verify Leonel, Andrii, Breana inside the all teachers
+                given()
+                    .accept(ContentType.JSON)
+                .when()
+                    .get("http://api.cybertektraining.com/teacher/all")
+                .then()
+                    .statusCode(200)
+                    .and()
+                    .body("teachers.firstName", hasItems("Leonel", "Andrii", "Breana"));
     }
 }
