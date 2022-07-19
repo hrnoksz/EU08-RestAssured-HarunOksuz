@@ -20,7 +20,7 @@ public abstract class SpartanTestBase {
     }
 
     @AfterAll
-    public void teardown(){
+    public static void teardown(){
 
         DBUtils.destroy();
     }
