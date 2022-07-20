@@ -8,7 +8,7 @@ import static io.restassured.RestAssured.baseURI;
 public abstract class SpartanTestBase {
 
     @BeforeAll
-    public static void init(){
+    public static void init(){ //MUST BE STATIC!!!!!!!!!!!!!!!!
         //save baseurl inside this variable so that we don't need to type each http method.
         baseURI = "http://3.83.123.243:8000";
 
@@ -19,7 +19,7 @@ public abstract class SpartanTestBase {
         DBUtils.createConnection(dbUrl, dbUsername, dbPassword);
     }
 
-    @AfterAll
+    @AfterAll //MUST BE STATIC!!!!!!!!!!
     public static void teardown(){
 
         DBUtils.destroy();
