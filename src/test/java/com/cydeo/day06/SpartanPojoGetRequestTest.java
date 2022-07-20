@@ -10,6 +10,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -85,6 +86,23 @@ public class SpartanPojoGetRequestTest extends SpartanTestBase {
 
         Search search = response.as(Search.class);
         System.out.println(search.getContent().get(0).getName());
+    }
+    @DisplayName("GET /spartans/search and save as List<Spartan>")
+    @Test
+    public void test4(){
+
+        Map<String, Object> queryParam = new HashMap<>();
+        queryParam.put("nameContains", "a");
+        queryParam.put("gender", "Male");
+
+        List<Spartan> spartanList = given().accept(ContentType.JSON)
+                .and().queryParams(queryParam)
+                .when().get("/api/spartans/search")
+                .then().statusCode(200)
+                .extract().jsonPath().getList("content", Spartan.class);
+
+        System.out.println(spartanList.get(0).getName());
+
     }
 
 }
