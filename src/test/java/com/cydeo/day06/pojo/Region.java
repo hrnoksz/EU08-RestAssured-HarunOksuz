@@ -13,8 +13,10 @@ import java.util.List;
 public class Region {
     @JsonProperty("region_id") //Jackson annotations;@JsonProperty-->is used to change variable name
     private int regionId;
+
     @JsonProperty("region_name")
     private String regionName;
+
     @JsonProperty("links")
     private List<Link> links;
 
