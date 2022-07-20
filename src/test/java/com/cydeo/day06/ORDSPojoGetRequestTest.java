@@ -3,11 +3,16 @@ package com.cydeo.day06;
 import com.cydeo.day06.pojo.Employee;
 import com.cydeo.day06.pojo.Link;
 import com.cydeo.day06.pojo.Region;
+import com.cydeo.day06.pojo.Regions;
 import com.cydeo.utililities.HRTestBase;
-import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
+import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -43,5 +48,48 @@ public class ORDSPojoGetRequestTest extends HRTestBase {
 
        System.out.println(employee1);
 
+    }
+
+    /* send a get request to regions
+        verify that region ids are 1,2,3,4
+        verify that regions names Europe ,Americas , Asia, Middle East and Africa
+        verify that count is 4
+        try to use pojo as much as possible
+        ignore non-used fields
+     */
+    @DisplayName("GET request to region only some fields test")
+    @Test
+    public void regionPojoTest(){
+
+        Response response = get("/regions").then().statusCode(200).extract().response();
+
+        Regions regions = response.as(Regions.class);
+
+        //verify count is 4
+        assertThat(regions.getCount(), is(4));
+
+        //create empty list to store values
+        List<String> regionNames = new ArrayList<>();
+        List<Integer> regionIds = new ArrayList<>();
+
+        //get list of regions out of regions object
+        List<Region> items = regions.getItems();
+
+        //loop through each of the region, save their ids and names to empty list that we prepare
+        for (Region region : items) {
+            regionNames.add(region.getRegionName());
+            regionIds.add(region.getRegionId());
+        }
+
+        System.out.println("regionIds = " + regionIds);
+        System.out.println("regionNames = " + regionNames);
+
+        //prepare expected result
+        List<Integer> expectedRegionIds = Arrays.asList(1,2,3,4);
+        List<String> expectedRegionNames = Arrays.asList("Europe", "Americas", "Asia", "Middle East and Africa");
+
+        //compare two result
+        assertThat(regionIds,is(expectedRegionIds)); //First argument is actual result
+        assertThat(regionNames,is(equalTo(expectedRegionNames)));
     }
 }
