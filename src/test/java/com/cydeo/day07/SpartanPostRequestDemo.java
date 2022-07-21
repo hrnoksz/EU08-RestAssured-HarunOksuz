@@ -1,8 +1,10 @@
 package com.cydeo.day07;
 
+import com.cydeo.day06.pojo.Spartan;
 import com.cydeo.utililities.SpartanTestBase;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.LinkedHashMap;
@@ -57,6 +59,7 @@ public class SpartanPostRequestDemo extends SpartanTestBase {
         assertThat(response.path("data.phone"), is(8877445596L));
 
     }
+    @DisplayName("POST with Map to JSON")
     @Test
     public void postMethod2(){
 
@@ -64,11 +67,47 @@ public class SpartanPostRequestDemo extends SpartanTestBase {
         Map<String, Object> requestJsonBody = new LinkedHashMap<>();
         requestJsonBody.put("name", "Severus");
         requestJsonBody.put("gender", "Male");
-        requestJsonBody.put("phone", "8877445596");
+        requestJsonBody.put("phone", 8877445596L);
 
         Response response = given().accept(ContentType.JSON) //what we are asking from API which is JSON response
                 .and().contentType(ContentType.JSON) //What we are sending to API, which is JSON also.
                 .body(requestJsonBody).log().all() //We use body() method to send our request
+                .when()
+                .post("/api/spartans"); // we use post to put end points
+
+        //verify status code
+        assertThat(response.statusCode(), is(201));
+
+        //verify content type
+        assertThat(response.contentType(), is("application/json"));
+
+        //verify the message
+        String expectedResponseMessage = "A Spartan is Born!";
+        assertThat(response.path("success"),is(expectedResponseMessage));
+
+        //verify same data is posted
+        assertThat(response.path("data.name"), is("Severus"));
+        assertThat(response.path("data.gender"), is("Male"));
+        assertThat(response.path("data.phone"), is(8877445596L));
+
+        response.prettyPrint();
+
+    }
+
+    @DisplayName("POST with Map to Spartan Class")
+    @Test
+    public void postMethod3(){
+        //create one object from your pojo, send it as a JSON
+        Spartan spartan = new Spartan();
+        spartan.setName("Severus");
+        spartan.setGender("Male");
+        spartan.setPhone(8877445596L);
+
+        System.out.println(spartan);
+
+        Response response = given().accept(ContentType.JSON) //what we are asking from API which is JSON response
+                .and().contentType(ContentType.JSON) //What we are sending to API, which is JSON also.
+                .body(spartan).log().all() //We use body() method to send our request
                 .when()
                 .post("/api/spartans"); // we use post to put end points
 

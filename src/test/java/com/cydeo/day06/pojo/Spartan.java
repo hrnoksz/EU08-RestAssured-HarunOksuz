@@ -1,14 +1,15 @@
 package com.cydeo.day06.pojo;
 
-/*
-{
-    "id": 15,
-    "name": "Meta",
-    "gender": "Female",
-    "phone": 1938695106
-}
- */
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
+@Getter
+@Setter
+@ToString
+
+@JsonIgnoreProperties(value = "id", allowSetters = true) //we use this part for day07 SpartanPostRequest test3
 public class Spartan {
 
     private int id;
@@ -16,47 +17,5 @@ public class Spartan {
     private String gender;
     private  long phone;
 
-    //getter and setter
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public long getPhone() {
-        return phone;
-    }
-
-    public void setPhone(long phone) {
-        this.phone = phone;
-    }
-
-    //toString
-
-    public String toString() {
-        return "Spartan{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", gender='" + gender + '\'' +
-                ", phone=" + phone +
-                '}';
-    }
 }
