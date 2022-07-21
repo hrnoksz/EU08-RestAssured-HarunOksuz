@@ -71,6 +71,32 @@ public class PutAndPatchRequestDemo extends SpartanTestBase {
                 .then()
                 .statusCode(204);
 
+        //send a GET request after update, make sure updated field changed, or the new info matching
+        //with requestBody that we send
+       Spartan spartan = given().accept(ContentType.JSON)
+                .and().pathParam("id", 117)
+                .when().get("/api/spartans/{id}")
+                .then().statusCode(200).extract().response().as(Spartan.class);
+       assertThat(putRequestMap.get("phone"), is(spartan.getPhone()));
+
+    }
+    @DisplayName("DELETE one spartan")
+    @Test
+    public void deleteSpartan(){
+        try{
+            int idToDelete = 112;
+
+            given().pathParam("id", idToDelete)
+                    .when().delete("/api/spartans/{id}")
+                    .then().statusCode(204);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        //send a get request after you delete make sure you are getting 404
+        given().pathParam("id", 112)
+                .when().get("api/spartans")
+                .then().statusCode(404);
     }
 
 }
