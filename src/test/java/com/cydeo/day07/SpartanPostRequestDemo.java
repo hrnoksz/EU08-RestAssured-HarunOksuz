@@ -129,4 +129,52 @@ public class SpartanPostRequestDemo extends SpartanTestBase {
         response.prettyPrint();
 
     }
+
+    @DisplayName("POST with Map to Spartan Class")
+    @Test
+    public void postMethod4(){
+        //this example we implement serialization with creating spartan object sending as a request body
+        //also implemented deserialization getting the id,sending get request and saving that body as a response
+
+        //create one object from your pojo, send it as a JSON
+        Spartan spartan = new Spartan();
+        spartan.setName("Severus");
+        spartan.setGender("Male");
+        spartan.setPhone(8877445596L);
+
+        System.out.println(spartan);
+        String expectedResponseMessage = "A Spartan is Born!";
+
+        int idFromPost = given().accept(ContentType.JSON) //what we are asking from API which is JSON response
+                .and().contentType(ContentType.JSON) //What we are sending to API, which is JSON also.
+                .body(spartan).log().all() //We use body() method to send our request
+                .when()
+                .post("/api/spartans")
+                .then()
+                .statusCode(201)
+                .contentType("application/json")
+                .body("success", is(expectedResponseMessage))
+                .extract().jsonPath().getInt("data.id");
+
+        System.out.println("idFromPost = " + idFromPost);
+
+        //send a get request to id
+        Spartan spartanPosted = given().accept(ContentType.JSON)
+                .and().pathParam("id", idFromPost)
+                .when().get("/api/spartans/{id}")
+                .then().statusCode(200).log().all().extract().as(Spartan.class);
+
+        assertThat(spartanPosted.getName(), is(spartan.getName()));
+        assertThat(spartanPosted.getGender(), is(spartan.getGender()));
+        assertThat(spartanPosted.getPhone(), is(spartan.getPhone()));
+        assertThat(spartanPosted.getId(), is(idFromPost));
+
+
+    }
+
+    //Create one SpartanUtil class
+    //create a static method that returns Map<String,Object>
+    //use faker library(add as a depedency) to assign each time different information
+    //for name,gender,phone number
+    //then use your method for creating spartan as a map,dynamically. (postMethod(2)
 }
