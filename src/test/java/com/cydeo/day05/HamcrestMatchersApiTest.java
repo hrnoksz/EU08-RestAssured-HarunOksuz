@@ -2,6 +2,7 @@ package com.cydeo.day05;
 
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import oracle.security.o3logon.a;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -58,7 +59,7 @@ public class HamcrestMatchersApiTest {
                     .statusCode(200).and()
                     .contentType("application/json;charset=UTF-8")
                     .and()
-                    //.header("Content-Length", is("275")) There is a problem related to website
+                    .header("Content-Length", is("275")) //There is a oracle.security.o3logon.a related to website
                     .and()
                     .header("Date", notNullValue()) //This line check whether Date is exist or not
                     .and().assertThat()
