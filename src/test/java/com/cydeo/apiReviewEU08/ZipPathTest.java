@@ -12,7 +12,7 @@ public class ZipPathTest extends ZipBase {
         Response response = given().accept(ContentType.JSON)
                 .and().pathParam("zip", 22031)
                 .when()
-                .get("/{zip}");
+                .get("/{zip}"); //endpoint is provided from ZipBase class
         response.prettyPrint();
 
     }
