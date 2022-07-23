@@ -3,6 +3,7 @@ package com.cydeo.apiReviewEU08;
 import io.restassured.http.ContentType;
 import io.restassured.http.Header;
 import io.restassured.http.Headers;
+import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Assertions.*;
@@ -58,6 +59,7 @@ And body should contains following information
         assertTrue(response.headers().hasHeaderWithName("Report-To"));
 
         //from this part we will use path method for BODY verification
+
         assertEquals("22031", response.path("\'post code\'"));
         //if there is two words (post code) we use single quotation!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
@@ -66,6 +68,10 @@ And body should contains following information
         assertEquals("Fairfax", response.path("places[0].\'place name\'"));
         assertEquals("Virginia", response.path("places[0].state"));
         assertEquals("38.8604", response.path("places[0].latitude"));
+
+        //JSONPATH
+        JsonPath jsonPath = response.jsonPath();
+        assertEquals("United States", jsonPath.getString("country"));
 
     }
 }

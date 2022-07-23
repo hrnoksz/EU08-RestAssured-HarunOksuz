@@ -28,3 +28,8 @@ Verifying body: 6 approach
                 -hamCrest matchers
                 -json to Java (Deserialization)
                 -Java to Json (Serialization
+
+        **Path and JsonPath are using Gpath Syntax
+
+        Starnge Vocabulary with API testing
+        Lombok, JSON, JACKSON, GSON, POJO, GPATH, HAMCREST
