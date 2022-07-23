@@ -26,8 +26,17 @@ Verifying body: 6 approach
                 -path
                 -jsonPath
                 -hamCrest matchers
-                -json to Java (Deserialization)
-                -Java to Json (Serialization
+
+               Deserialization: Which method we call? as() method
+                -json to Java Collection
+                -json to POJO (Plain Old Java Object)
+                -We need Object Mappers (Data Binders): Jackson, Gson Dependency (inside pom.xml)
+                -We will mostly use this for GET requests
+
+                Serialization:
+                -Java to Json
+                -We use body() method
+                -POST, PUT, PATCH requests
 
         **Path and JsonPath are using Gpath Syntax
 
