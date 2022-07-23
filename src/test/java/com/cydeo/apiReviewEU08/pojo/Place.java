@@ -1,4 +1,4 @@
-package com.cydeo.apiReviewEU08;
+package com.cydeo.apiReviewEU08.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
