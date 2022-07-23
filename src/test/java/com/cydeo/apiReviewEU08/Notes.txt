@@ -40,5 +40,11 @@ Verifying body: 6 approach
 
         **Path and JsonPath are using Gpath Syntax
 
-        Starnge Vocabulary with API testing
+        Strange Vocabulary with API testing
         Lombok, JSON, JACKSON, GSON, POJO, GPATH, HAMCREST
+
+        How to choose which way to use?
+            -Only one data: String Manipulation (contains method)
+            -One time job, not a big project, more than one data: Collection, hamcrest, path or jsonPath
+            -At your companies: You need to spend time to create POJO Classes
+                    -Takes time but very useful and maintainable

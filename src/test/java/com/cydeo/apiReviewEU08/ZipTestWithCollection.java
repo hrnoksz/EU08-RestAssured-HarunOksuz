@@ -38,11 +38,12 @@ public class ZipTestWithCollection extends ZipBase {
     ]
     }
          */
-        //De-serialization
+        //De-serialization!!!!!!!!!!!!!!!!!
 
         Map<String, Object> postCode = response.body().as(Map.class);
         System.out.println("postCode.get(\"post code\") = " + postCode.get("post code"));
 
+        assertEquals("22031", postCode.get("post code"));
         assertEquals("United States", postCode.get("country"));
 
         //"state" : "Virginia" verify; this information is inside the "places" key
