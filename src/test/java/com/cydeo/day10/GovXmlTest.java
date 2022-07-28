@@ -29,7 +29,7 @@ public class GovXmlTest {
 
         //get all the years
         List<Integer> years = xmlPath.getList("response.row.row.year");
-        System.out.println("list = " + years);
+        System.out.println("years = " + years);
         //get all unknowns
         List<Integer> unknowns = xmlPath.getList("response.row.row.unknown");
         System.out.println("unknowns = " + unknowns);
