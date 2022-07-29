@@ -29,6 +29,7 @@ public class TestLifeCycleAnnotations {
         System.out.println("Test1 is running");
     }
 
+    @Disabled //Means ignore the test--test2 will not be executed
     @Test
     public void test2(){
 
@@ -43,11 +44,14 @@ public class TestLifeCycleAnnotations {
 }
 /*
 Before all is running
+
 	Before each is running
 Test1 is running
 	After each is running
+
 	Before each is running
 Test2 is running
 	After each is running
+
 After all is running
  */
