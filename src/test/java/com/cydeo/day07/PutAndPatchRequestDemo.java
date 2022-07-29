@@ -29,7 +29,7 @@ public class PutAndPatchRequestDemo extends SpartanTestBase {
         /*
         When we use PUT request, we should provide all data's inside JSON body.
         It doesn't matter whether we update or not them.
-        In above example, we update only phone number, but we provide all data's
+        In following example, we update only phone number, but we provide all data's
          */
 
        given().contentType(ContentType.JSON)

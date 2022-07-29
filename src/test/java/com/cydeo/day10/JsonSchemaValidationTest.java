@@ -46,7 +46,8 @@ public class JsonSchemaValidationTest extends SpartanAuthTestBase {
                 .statusCode(200)
                 //what if you have your .json file not under resources following way -->!!!!!!!!!
                 //We use following methods, if .json file is not under resources directory
-                //Right click on .json file --> click on Copy/Path Reference--> click on Path From Repository Root
+                //Right click on .json file --> click on Copy/Path Reference--> click on Path From Content Root
+                //And then past it inside new File parenthesis
                 .body(JsonSchemaValidator.matchesJsonSchema(new File("src/test/java/com/cydeo/day10/allSpartansSchema.json")));
 
     }
