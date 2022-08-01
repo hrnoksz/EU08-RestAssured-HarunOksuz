@@ -1,6 +1,7 @@
 package com.cydeo.day12;
 
 import com.cydeo.utililities.SpartanNewBase;
+import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
 
@@ -27,5 +28,21 @@ public class OldRestAssuredTest extends SpartanNewBase {
                 .log().all();
 
 
+    }
+    @Test
+    public void test2(){
+        given()
+                .accept(ContentType.JSON)
+                .and()
+                .auth().basic("admin", "admin")
+                .log().all()
+                .expect()
+                .statusCode(200)
+                .and()
+                .contentType(ContentType.JSON)
+                .body("id[0]", is(1))
+                .logDetail(LogDetail.ALL) //log way using with except()
+                .when()
+                .get("/spartans");
     }
 }
