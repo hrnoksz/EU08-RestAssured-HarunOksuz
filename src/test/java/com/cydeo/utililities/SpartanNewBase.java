@@ -13,6 +13,8 @@ public class SpartanNewBase {
 
     public static RequestSpecification requestSpec;
     public static ResponseSpecification responseSpec;
+    public static RequestSpecification userSpec;
+    public static RequestSpecification adminSpec;
     @BeforeAll
     public static void init() { //MUST BE STATIC!!!!!!!!!!!!!!!!
         //save baseurl inside this variable so that we don't need to type each http method.
@@ -24,6 +26,12 @@ public class SpartanNewBase {
                 .accept(ContentType.JSON)
                 .and()
                 .auth().basic("admin", "admin")
+                .log().all();
+
+        userSpec = given()
+                .accept(ContentType.JSON)
+                .and()
+                .auth().basic("user", "user")
                 .log().all();
 
         responseSpec = expect().statusCode(200)
