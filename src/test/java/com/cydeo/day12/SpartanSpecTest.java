@@ -1,7 +1,10 @@
 package com.cydeo.day12;
 
 import com.cydeo.utililities.SpartanNewBase;
+import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
+import io.restassured.specification.RequestSpecification;
+import io.restassured.specification.ResponseSpecification;
 import org.junit.jupiter.api.Test;
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -17,16 +20,23 @@ public class SpartanSpecTest extends SpartanNewBase {
     @Test
     public void test1(){
 
-        given()
-                .accept(ContentType.JSON)
-                .and()
-                .auth().basic("admin", "admin")
+//        RequestSpecification requestSpec = given()
+//                                                .accept(ContentType.JSON)
+//                                                .and()
+//                                                .auth().basic("admin", "admin")
+//                                                .log().all();
+//
+//        ResponseSpecification responseSpec = expect().statusCode(200)
+//                                            .and()
+//                                            .contentType(ContentType.JSON)
+//                                            .logDetail(LogDetail.ALL);
+
+        given().spec(requestSpec)
                 .when()
-                .get("/spartans")
+                        .get("/spartans")
                 .then()
-                .statusCode(200)
-                .and()
-                .contentType(ContentType.JSON);
+                        .spec(responseSpec);
+
 
     }
 
@@ -34,17 +44,12 @@ public class SpartanSpecTest extends SpartanNewBase {
     public void test2(){
 
         given()
-                .accept(ContentType.JSON)
-                .and()
-                .auth().basic("admin", "admin")
-                .log().all()
+                .spec(requestSpec)
                 .pathParam("id", "15")
-                .when()
+        .when()
                 .get("/spartans/{id}")
-                .then()
-                .statusCode(200)
-                .and()
-                .contentType(ContentType.JSON);
+        .then()
+                .spec(responseSpec);
 
     }
 }
