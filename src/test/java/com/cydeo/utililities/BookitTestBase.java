@@ -69,7 +69,7 @@ public class BookitTestBase {
 
     }
 
-    //teacher,student-member,student-leader
+    //teacher,student-member,student-leader!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     public static RequestSpecification userReqSpec(String role){
         //advanced lazy way :)
         return given()
@@ -81,7 +81,7 @@ public class BookitTestBase {
 
 
     //teacher, student-member, student-leader
-    //it will take user info from configuration properties file
+    //it will take user info from configuration properties file!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
     public static String getTokenByRole(String role){
         //switch, if make sure you get correct user info

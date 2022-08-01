@@ -33,7 +33,7 @@ public class BookitSpecTest extends BookitTestBase {
         .when()
                 .get("/api/users/me")
         .then()
-                .spec(responseSpec);
+                .spec(getDynamicResSpec(200));
     }
 
 
