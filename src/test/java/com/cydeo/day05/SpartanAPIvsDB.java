@@ -28,6 +28,7 @@ public class SpartanAPIvsDB extends SpartanTestBase {
                 "from spartans\n" +
                 "where spartan_id = 15";
 
+        //save data inside the map
         Map<String, Object> dbMap = DBUtils.getRowMap(query); //This data is coming from database
         System.out.println(dbMap); //EXPECTED RESULT
 

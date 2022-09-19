@@ -52,9 +52,9 @@ public class ORDSHamcrestTest extends HRTestBase {
        Response response = given().
                 accept(ContentType.JSON)
                 .and().queryParam("q", "{\"job_id\":\"IT_PROG\"}")
-                .when()
+       .when()
                 .get("/employees")
-                .then()
+       .then()
                 .statusCode(200)
                 .body("items.job_id", everyItem(equalTo("IT_PROG")))
                 .extract().response();
@@ -72,6 +72,7 @@ public class ORDSHamcrestTest extends HRTestBase {
                 .body("items.job_id", everyItem(equalTo("IT_PROG")))
                 .extract().jsonPath();
 
+       //extract() method allows us to get response object after we use then() method
        //assert that we have only 5 firstnames
        assertThat(jsonPath.getList("items.first_name"), hasSize(5));
 

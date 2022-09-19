@@ -16,12 +16,12 @@ public abstract class SpartanTestBase {
         String dbUsername = "SP";
         String dbPassword = "SP";
 
-        //DBUtils.createConnection(dbUrl, dbUsername, dbPassword);
+        DBUtils.createConnection(dbUrl, dbUsername, dbPassword);
     }
 
     @AfterAll //MUST BE STATIC!!!!!!!!!!
     public static void teardown(){
 
-        //DBUtils.destroy();
+        DBUtils.destroy();
     }
 }
